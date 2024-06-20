@@ -8,10 +8,12 @@ import './App.scss';
 import { AppContainer } from './styled-components';
 import theme from './theme';
 import { SnackbarUtilsConfigurator } from './utilities';
+import {Home} from './pages/Home/Home.tsx'
 
 // Routes
 const DashboardSuperFix = lazy(() => import('@/pages/Dashboard/DashboardSuperFix'));
 const Login = lazy(() => import('@/pages/Login/Login'));
+
 
 const App = () => {
   return (
@@ -26,6 +28,7 @@ const App = () => {
                   <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path={`dashboard/*`} element={<DashboardSuperFix />} />
+                    <Route paht={"/home"} element={<Home/>}/>
                   </Routes>
                 </BrowserRouter>
               </Provider>
