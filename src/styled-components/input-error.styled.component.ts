@@ -5,3 +5,6 @@ export const InputError = styled.p`
   text-align: left;
   margin-bottom: 0;
 `
+const AppContainer = styled.div`
+  /* tus estilos aquí */
+`;

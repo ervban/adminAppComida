@@ -21,6 +21,8 @@ export const MainContainer = styled.div`
   height: 100%;
 `;
 
+
+
 export const AppContainer = styled.div`
   justify-content: center;
   background-color: #f4f5ff;
