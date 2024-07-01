@@ -12,8 +12,6 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
-    
-    
   },
   "dependencies": {
     "@emotion/react": "^11.8.1",

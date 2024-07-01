@@ -27,7 +27,6 @@ function ResponsiveAppBar() {
   const navLinks = [
     { title: 'Nuevo', path: '/nuevo' },
     { title: 'Productos', path: '/productos' },
-    { title: 'Historial', path: '/historial' },
     { title: 'Pedidos', path: '/pedidos' }
   ];
 

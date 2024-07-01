@@ -35,6 +35,7 @@ const Tabla: React.FC<TableProps> = ({ columns, data, onOpen }) => {
     console.log(`Eliminar: ${id}`);
   };
   const renderImageButton = (params: any) => {
+    if (!params.row.uri) return null;
     const theme = useTheme(); // Accede al tema
 
     return (
@@ -46,11 +47,16 @@ const Tabla: React.FC<TableProps> = ({ columns, data, onOpen }) => {
             bgcolor: theme.palette.secondary.dark // Usa el color oscuro para el estado hover
           }
         }}
-        onClick={() => onOpen(params.row.imagenUrl)}
+        onClick={() => onOpen(params.row.uri)}
       >
         Ver Imagen
       </Button>
     );
+  };
+
+  const renderItemsButton = (params: any) => {
+    const theme = useTheme(); 
+    
   };
 
   const renderOpenButton = (params: any) => (
@@ -96,11 +102,8 @@ const Tabla: React.FC<TableProps> = ({ columns, data, onOpen }) => {
       field: column.key,
       headerName: column.title,
       width: 150,
-      // Aquí puedes decidir cómo renderizar la columna específica para el pop-up
-      // Por ejemplo, si la columna es 'imagen', podrías usar `renderPopupButton`
-      renderCell: column.key === 'imagen' ? renderImageButton : undefined
+      renderCell: column.key === 'uri' ? renderImageButton : undefined // Asegúrate de que 'uri' sea el campo correcto
     })),
-    // Paso 3: Mantener la columna de acciones para editar y eliminar
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -118,7 +121,8 @@ const Tabla: React.FC<TableProps> = ({ columns, data, onOpen }) => {
   const gridRows = data.map((row, index) => ({
     id: index,
     ...row
-  }));
+  })).reverse(); // Invierte el orden de las filas aquí
+  
   const adjustedColumns = gridColumns.map((column) => ({
     ...column,
     flex: 1 // Asegura que cada columna tenga flex para ajustarse al espacio disponible

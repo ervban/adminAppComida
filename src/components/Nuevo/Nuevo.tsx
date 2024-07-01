@@ -1,26 +1,24 @@
-import React from 'react'
-import TarjetaPedido from '../Tarjeta/TarjetaPedido'
+import React, { useState, useEffect } from 'react';
+import TarjetaPedido from '../Tarjeta/TarjetaPedido';
+import { getOrders } from '../../services/pedidos.service';
 
 export default function Nuevo() {
-  const pedidosFalsos = [
-    {
-      id: 1,
-      items: [
-        { nombre: 'Hamburguesa', cantidad: 2 },
-        { nombre: 'Gaseosa', cantidad: 1 }
-      ]
-    },
-    {
-      id: 2,
-      items: [
-        { nombre: 'Pizza', cantidad: 1 },
-        { nombre: 'Agua', cantidad: 2 }
-      ]
-    }
-  ];
+  const [pedidos, setPedidos] = useState<{ id: number }[]>([]);
+
+  useEffect(() => {
+    const cargarPedidos = async () => {
+      const pedidosObtenidos = await getOrders(); // Usando getOrders para obtener los pedidos
+      if (pedidosObtenidos) {
+        setPedidos(pedidosObtenidos);
+      }
+    };
+
+    cargarPedidos();
+  }, []); // El array vacío asegura que esto se ejecute solo una vez al montar el componente
+
   return (
     <div>
-      {pedidosFalsos.map((pedido) => (
+      {pedidos.map((pedido) => (
         <TarjetaPedido key={pedido.id} pedido={pedido} />
       ))}
     </div>

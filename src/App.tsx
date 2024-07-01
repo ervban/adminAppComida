@@ -1,22 +1,20 @@
-import store from '@/redux/store';
-import { ThemeProvider } from '@emotion/react';
-import { SnackbarProvider } from 'notistack';
 import React, { lazy, Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
+import { ThemeProvider } from '@emotion/react';
+import store from './redux/store'; // Ajustado para usar una ruta relativa
 import './App.scss';
-import { AppContainer } from './styled-components';
 import theme from './theme';
 import { SnackbarUtilsConfigurator } from './utilities';
 import Home from './pages/Home/Home';
-import Productos from './components/Productos/Productos';
-import Nuevo from './components/Nuevo/Nuevo';
-import PedidosDiarios from './components/PedidosDiarios/PedidosDiarios';
-import Pedidos from './components/Pedido/Pedidos';
+// Importaciones lazy
+const Productos = lazy(() => import('./components/Productos/Productos'));
+const Nuevo = lazy(() => import('./components/Nuevo/Nuevo'));
+const Pedidos = lazy(() => import('./components/Pedidos/Pedidos'));
 
-// Routes
-const DashboardSuperFix = lazy(() => import('@/pages/Dashboard/DashboardSuperFix'));
-const Login = lazy(() => import('@/pages/Login/Login'));
+const DashboardSuperFix = lazy(() => import('./pages/Dashboard/DashboardSuperFix')); // Ajustado para usar una ruta relativa
+const Login = lazy(() => import('./pages/Login/Login')); // Ajustado para usar una ruta relativa
 
 const App = () => {
   return (
@@ -24,20 +22,19 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <SnackbarProvider>
           <SnackbarUtilsConfigurator />
-          <Suspense fallback={<div>Loading ...</div>}>
-            <Provider store={store}>
-              <BrowserRouter>
+          <Provider store={store}>
+            <BrowserRouter>
+              <Suspense fallback={<div>Loading ...</div>}>
                 <Routes>
                   <Route path="/" element={<Home />}>
                     <Route path="/nuevo" element={<Nuevo />} />
                     <Route path="/productos" element={<Productos />} />
-                    <Route path="/historial" element={<Pedidos />} />
-                    <Route path="/pedidos" element={<PedidosDiarios />} />
+                    <Route path="/pedidos" element={<Pedidos />} />
                   </Route>
                 </Routes>
-              </BrowserRouter>
-            </Provider>
-          </Suspense>
+              </Suspense>
+            </BrowserRouter>
+          </Provider>
         </SnackbarProvider>
       </ThemeProvider>
     </React.StrictMode>
