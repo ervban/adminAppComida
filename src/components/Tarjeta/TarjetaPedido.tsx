@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardActions, Typography, Collapse, IconButton } from '@mui/material';
+import { Card, CardContent, CardActions, Typography, Collapse, IconButton, Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
-function TarjetaPedido({ pedido }: { pedido: any }) {
+function TarjetaPedido({ pedido, estilo }: { pedido: any; estilo: React.CSSProperties }) {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -12,33 +11,36 @@ function TarjetaPedido({ pedido }: { pedido: any }) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, marginBottom: 2 }}>
+    <Card sx={{ maxWidth: 345, marginBottom: 2, ...estilo }}>
+      {' '}
       <CardContent>
         <Typography variant="h5" component="div">
-          {pedido.nombre} 
+          {pedido.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Haz clic para ver detalles
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="mostrar más"
-        >
+        <IconButton onClick={handleExpandClick} aria-expanded={expanded} aria-label="mostrar más">
           <ExpandMoreIcon />
         </IconButton>
-        {/* Asegúrate de que los iconos CheckIcon y CloseIcon estén posicionados correctamente aquí si necesitas usarlos */}
+        <Button size="small" color="primary">
+          Aceptar
+        </Button>
+        <IconButton size="small" color="secondary" aria-label="cancelar">
+          <CloseIcon />
+        </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Detalles:</Typography>
-          {pedido.items && pedido.items.map((item: any, index: any) => (
-            <Typography key={index} paragraph>
-              {item.nombre} - Cantidad: {item.cantidad}
-            </Typography>
-          ))}
+          {pedido.detalles &&
+            pedido.detalles.map((detalle: any, index: number) => (
+              <Typography key={index} paragraph>
+                Producto: {detalle.name} - Cantidad: {detalle.stock}
+              </Typography>
+            ))}
         </CardContent>
       </Collapse>
     </Card>

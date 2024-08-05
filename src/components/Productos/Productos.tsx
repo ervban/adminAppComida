@@ -9,7 +9,7 @@ import {createProduct, getAllProducts } from '../../services/products.service';
 
 // Actualización de la definición de tipos para los productos para incluir un id
 interface Producto {
-  id: string; // Se añade el id al tipo Producto
+  id: string; 
   producto: string;
   cantidad: number;
   precio: number;

@@ -9,6 +9,7 @@ import { colorRojo, theme } from '@/styled-components/button.styled';
 type Column = {
   key: string;
   title: string;
+  render?: (data: any) => React.ReactNode; // Función de renderizado opcional
 };
 
 type RowData = {

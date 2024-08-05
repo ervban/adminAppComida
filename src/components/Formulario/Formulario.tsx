@@ -23,8 +23,7 @@ const Formulario: React.FC<FormProps> = ({ fields, onSubmit }) => {
   const handleChange = (event:any) => {
     const { name, value, files } = event.target;
     if (name === 'raised-button-file' && files.length > 0) {
-      setFileName(files[0].name); // Paso 2: Actualizar el estado con el nombre del archivo
-      // Aquí puedes agregar también la lógica para manejar la carga del archivo si es necesario
+      setFileName(files[0].name); 
     } else {
       setFormData({ ...formData, [name]: value });
     }

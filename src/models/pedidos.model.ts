@@ -1,14 +1,22 @@
 export interface Pedidos {    
-    id: number;
+    id: string;
     name: string;
     price: number;
-    status: null;
+    status: PedidoStatus;
 }
 
 export interface PedidosProductos {
-    name : string;
-    id: number;
-    price: number;
-    stock: number;
-    uri: string;
+    stock: any;
+    name: any;
+    amount: number;
+    id: string;
+    idProduct: string;
+    orderId: string;
+    quantity: number;
+}
+
+export enum PedidoStatus {
+    INICIADO = "iniciado",
+    EN_PROCESO = "enproceso",
+    LISTO = "completado",
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Pedidos, PedidosProductos } from "@/models/pedidos.model";
 
-const BASE_URL = "http://localhost:8909/order";
+const BASE_URL = "https://myappdecomidaback.onrender.com/order";
 
 // Función para obtener una orden por su ID
 export const getOrderById = async (id: string): Promise<Pedidos | null> => {
@@ -30,16 +30,28 @@ export const getOrders = async (): Promise<Pedidos[] | null> => {
       return null;
     }
   };
-// Función para obtener los detalles de los productos de una orden por el ID de la orden
-export const getOrderDetailsById = async (id: string): Promise<PedidosProductos | null> => {
+
+  
+export const getOrderDetailsById = async (id: string): Promise<PedidosProductos[] | null> => {
   try {
     const response = await axios.get(`${BASE_URL}/getorderdetails`, { params: { id } });
     if (response.status === 200) {
-      return response.data as PedidosProductos;
+      return response.data as PedidosProductos[];
     }
     return null;
   } catch (error) {
     console.error("Error al obtener los detalles de la orden:", error);
     return null;
+  }
+};
+
+export const getAllOrders = async () => {
+  try {
+      const response = await axios.get(`${BASE_URL}/getall`);
+      console.log("Todos las ordenes :", response.data);
+      return response.data;
+  } catch (error) {
+      console.error("Error al obtener todos las ordenes ", error);
+      throw error;
   }
 };

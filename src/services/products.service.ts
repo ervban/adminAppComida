@@ -2,7 +2,7 @@ import { Product } from "@/models/products.model";
 import { loadAbort } from '@/utilities';
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8909/product';
+const BASE_URL = 'https://myappdecomidaback.onrender.com/product';
 
 export const createProduct = async (product: Product) => {
     try {
